@@ -1,3 +1,3 @@
 export default {
-  jwtSecret: "@QEGTUI"
+  jwtSecret: "UVJr2x75DYDuqHEguFKuDQYBZDe1zIdF"
 }

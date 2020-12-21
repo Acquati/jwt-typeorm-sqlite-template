@@ -1,5 +1,5 @@
 {
-  "name": "jwt-typeorm-postgres",
+  "name": "jwt-typeorm-sqlite",
   "version": "0.0.1",
   "description": "Awesome project developed with TypeORM.",
   "devDependencies": {
