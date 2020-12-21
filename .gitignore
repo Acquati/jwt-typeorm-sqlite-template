@@ -4,7 +4,7 @@ node_modules/
 build/
 tmp/
 temp/
-src/config.ts
+src/config/config.ts
 database.sqlite
 
 # Created by https://www.toptal.com/developers/gitignore/api/node
