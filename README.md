@@ -2,19 +2,19 @@
 
 Steps to run this project for development:
 
-```console
-// Clone the repository
+```bash
+# Clone the repository
 git clone git@github.com:Acquati/jwt-typeorm-sqlite-template.git
 
-// Open directory
+# Open directory
 cd jwt-typeorm-sqlite-template
 
-// Copy config file example
+# Copy config file example
 cp ./src/config.example.ts ./src/config.ts
 
 yarn install
 yarn start
 
-// Run this migration in the first time setup
+# Run this migration in the first time setup
 yarn run migration:run
 ```
