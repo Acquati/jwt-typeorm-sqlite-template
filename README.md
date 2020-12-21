@@ -10,7 +10,7 @@ git clone git@github.com:Acquati/jwt-typeorm-sqlite-template.git
 cd jwt-typeorm-sqlite-template
 
 # Copy config file example
-cp ./src/config.example.ts ./src/config.ts
+cp ./src/config/config.example.ts ./src/config/config.ts
 
 yarn install
 yarn start
