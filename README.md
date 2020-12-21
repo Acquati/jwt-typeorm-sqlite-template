@@ -2,14 +2,14 @@
 
 Steps to run this project for development:
 
-```
+```console
 // Clone the repository
 git clone git@github.com:Acquati/jwt-typeorm-sqlite-template.git
 
 // Open directory
 cd jwt-typeorm-sqlite-template
 
-//Copy config file example
+// Copy config file example
 cp ./src/config.example.ts ./src/config.ts
 
 yarn install
