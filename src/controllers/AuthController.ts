@@ -77,7 +77,7 @@ class AuthController {
     user.hashPassword()
     userRepository.save(user)
 
-    res.status(204).send()
+    res.status(200).send('Password successfully changed.')
   }
 }
 export default AuthController

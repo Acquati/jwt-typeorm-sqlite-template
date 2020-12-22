@@ -61,7 +61,7 @@ class UserController {
     }
 
     //If all ok, send 201 response
-    res.status(201).send('User created.')
+    res.status(201).send('User created successfully.')
   }
 
   static editUser = async (req: Request, res: Response) => {
@@ -95,11 +95,12 @@ class UserController {
     try {
       await userRepository.save(user)
     } catch (e) {
-      res.status(409).send('username already in use.')
+      res.status(409).send('Username already in use.')
       return
     }
-    //After all send a 204 (no content, but accepted) response
-    res.status(204).send()
+
+    //After all send a 200 (OK) response
+    res.status(200).send('User edited successfully.')
   }
 
   static deleteUser = async (req: Request, res: Response) => {
@@ -116,8 +117,8 @@ class UserController {
     }
     userRepository.delete(id)
 
-    //After all send a 204 (no content, but accepted) response
-    res.status(204).send()
+    //After all send a 200 (OK) response
+    res.status(200).send('User successfully deleted.')
   }
 }
 
