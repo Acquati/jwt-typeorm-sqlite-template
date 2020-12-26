@@ -5,7 +5,6 @@ import { validate } from 'class-validator'
 import { User } from '../entity/User'
 
 class UserController {
-
   static listAll = async (req: Request, res: Response) => {
     //Get users from database
     const userRepository = getRepository(User)
