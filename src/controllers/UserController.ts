@@ -28,7 +28,7 @@ class UserController {
       })
       response.send(user)
     } catch (error) {
-      response.status(404).send('User not found.')
+      response.status(404).send('User not found. ' + error)
     }
   }
 
@@ -55,7 +55,7 @@ class UserController {
     try {
       await userRepository.save(user)
     } catch (error) {
-      response.status(409).send('Username already in use.')
+      response.status(409).send('Username already in use. ' + error)
       return
     }
 
@@ -72,12 +72,12 @@ class UserController {
 
     //Try to find user on database
     const userRepository = getRepository(User)
-    let user
+    let user: User
     try {
       user = await userRepository.findOneOrFail(id)
     } catch (error) {
       //If not found, send a 404 response
-      response.status(404).send('User not found.')
+      response.status(404).send('User not found. ' + error)
       return
     }
 
@@ -94,7 +94,7 @@ class UserController {
     try {
       await userRepository.save(user)
     } catch (error) {
-      response.status(409).send('Username already in use.')
+      response.status(409).send('Username already in use. ' + error)
       return
     }
 
@@ -111,7 +111,7 @@ class UserController {
     try {
       user = await userRepository.findOneOrFail(id)
     } catch (error) {
-      response.status(404).send('User not found.')
+      response.status(404).send('User not found. ' + error)
       return
     }
     userRepository.delete(id)
