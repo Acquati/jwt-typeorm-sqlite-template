@@ -7,11 +7,11 @@ import { User } from '../entity/User'
 import config from '../config/config'
 
 class AuthController {
-  static login = async (req: Request, res: Response) => {
+  static login = async (request: Request, response: Response) => {
     //Check if username and password are set
-    let { username, password } = req.body
+    let { username, password } = request.body
     if (!(username && password)) {
-      res.status(400).send()
+      response.status(400).send()
     }
 
     //Get user from database
@@ -20,12 +20,12 @@ class AuthController {
     try {
       user = await userRepository.findOneOrFail({ where: { username } })
     } catch (error) {
-      res.status(401).send()
+      response.status(401).send()
     }
 
     //Check if encrypted password match
     if (!user.checkIfUnencryptedPasswordIsValid(password)) {
-      res.status(401).send()
+      response.status(401).send()
       return
     }
 
@@ -37,17 +37,17 @@ class AuthController {
     )
 
     //Send the jwt in the response
-    res.send(token)
+    response.send(token)
   }
 
-  static changePassword = async (req: Request, res: Response) => {
+  static changePassword = async (request: Request, response: Response) => {
     //Get ID from JWT
-    const id = res.locals.jwtPayload.userId
+    const id = response.locals.jwtPayload.userId
 
     //Get parameters from the body
-    const { oldPassword, newPassword } = req.body
+    const { oldPassword, newPassword } = request.body
     if (!(oldPassword && newPassword)) {
-      res.status(400).send()
+      response.status(400).send()
     }
 
     //Get user from the database
@@ -56,12 +56,12 @@ class AuthController {
     try {
       user = await userRepository.findOneOrFail(id)
     } catch (id) {
-      res.status(401).send()
+      response.status(401).send()
     }
 
     //Check if old password matchs
     if (!user.checkIfUnencryptedPasswordIsValid(oldPassword)) {
-      res.status(401).send()
+      response.status(401).send()
       return
     }
 
@@ -69,7 +69,7 @@ class AuthController {
     user.password = newPassword
     const errors = await validate(user)
     if (errors.length > 0) {
-      res.status(400).send(errors)
+      response.status(400).send(errors)
       return
     }
 
@@ -77,7 +77,7 @@ class AuthController {
     user.hashPassword()
     userRepository.save(user)
 
-    res.status(200).send('Password successfully changed.')
+    response.status(200).send('Password successfully changed.')
   }
 }
 export default AuthController

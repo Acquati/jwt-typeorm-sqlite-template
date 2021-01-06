@@ -4,9 +4,9 @@ import { getRepository } from 'typeorm'
 import { User } from '../entity/User'
 
 export const checkRole = (roles: Array<string>) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
+  return async (request: Request, response: Response, next: NextFunction) => {
     //Get the user ID from previous midleware
-    const id = res.locals.jwtPayload.userId
+    const id = response.locals.jwtPayload.userId
 
     //Get user role from the database
     const userRepository = getRepository(User)
@@ -14,11 +14,11 @@ export const checkRole = (roles: Array<string>) => {
     try {
       user = await userRepository.findOneOrFail(id)
     } catch (id) {
-      res.status(401).send()
+      response.status(401).send()
     }
 
     //Check if array of authorized roles includes the user's role
     if (roles.indexOf(user.role) > -1) next()
-    else res.status(401).send()
+    else response.status(401).send()
   }
 }
