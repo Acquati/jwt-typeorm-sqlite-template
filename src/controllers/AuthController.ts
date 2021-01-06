@@ -11,7 +11,7 @@ class AuthController {
     //Check if username and password are set
     let { username, password } = request.body
     if (!(username && password)) {
-      response.status(400).send()
+      response.status(400).send('Username and password not set.')
     }
 
     //Get user from database
@@ -20,12 +20,12 @@ class AuthController {
     try {
       user = await userRepository.findOneOrFail({ where: { username } })
     } catch (error) {
-      response.status(401).send()
+      response.status(401).send('User not found. ' + error)
     }
 
     //Check if encrypted password match
     if (!user.checkIfUnencryptedPasswordIsValid(password)) {
-      response.status(401).send()
+      response.status(401).send("Password don't match.")
       return
     }
 
@@ -47,7 +47,7 @@ class AuthController {
     //Get parameters from the body
     const { oldPassword, newPassword } = request.body
     if (!(oldPassword && newPassword)) {
-      response.status(400).send()
+      response.status(400).send('Old password and new password not set.')
     }
 
     //Get user from the database
@@ -55,13 +55,13 @@ class AuthController {
     let user: User
     try {
       user = await userRepository.findOneOrFail(id)
-    } catch (id) {
-      response.status(401).send()
+    } catch (error) {
+      response.status(401).send('User not found. ' + error)
     }
 
     //Check if old password matchs
     if (!user.checkIfUnencryptedPasswordIsValid(oldPassword)) {
-      response.status(401).send()
+      response.status(401).send("Old password and new password don't match.")
       return
     }
 
